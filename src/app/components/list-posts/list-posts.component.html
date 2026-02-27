@@ -1,0 +1,26 @@
+<div class="container">
+  <h2>Blog Posts</h2>
+  <div *ngFor="let post of posts" class="post-card" (click)="navigateToPost(post.id)">
+    <div class="post-content">
+      <h3 class="post-title">{{ post.title }}</h3>
+      <p class="post-excerpt">{{ post.content }}</p>
+      <div class="post-meta">
+        <span class="post-author">
+          <i class="fas fa-user"></i>
+          {{ post.author }}
+        </span>
+        <span class="post-date">
+          <i class="fas fa-calendar"></i>
+          {{ post.datePosted | date:'mediumDate' }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="posts.length === 0" class="empty-state">
+    <i class="fas fa-newspaper"></i>
+    <h3>No Posts Yet</h3>
+    <p>Be the first to create a post!</p>
+    <a routerLink="/add-post" class="btn">Create Post</a>
+  </div>
+</div>

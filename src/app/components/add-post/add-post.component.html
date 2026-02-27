@@ -1,0 +1,82 @@
+<div class="container">
+  <h2>Add New Post</h2>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isSubmitting" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Adding your post...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger fade-in">
+    <i class="fas fa-exclamation-circle"></i>
+    {{ errorMessage }}
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="alert alert-success fade-in">
+    <i class="fas fa-check-circle"></i>
+    {{ successMessage }}
+    <br>
+    <small>Redirecting to home page...</small>
+  </div>
+
+  <!-- Post Form -->
+  <div class="form-card" *ngIf="!successMessage">
+    <form (ngSubmit)="onSubmit()" #postForm="ngForm">
+      <div class="form-group">
+        <label for="title">
+          <i class="fas fa-heading"></i>
+          Title
+        </label>
+        <input type="text"
+               class="form-control"
+               id="title"
+               placeholder="Enter your post title"
+               [(ngModel)]="post.title"
+               name="title"
+               required
+               #title="ngModel"
+               [class.is-invalid]="title.invalid && title.touched">
+        <div *ngIf="title.invalid && title.touched" class="text-danger">
+          <i class="fas fa-exclamation-triangle"></i>
+          Title is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="content">
+          <i class="fas fa-paragraph"></i>
+          Content
+        </label>
+        <textarea class="form-control"
+                  id="content"
+                  rows="10"
+                  placeholder="Write your post content here..."
+                  [(ngModel)]="post.content"
+                  name="content"
+                  required
+                  #content="ngModel"
+                  [class.is-invalid]="content.invalid && content.touched"></textarea>
+        <div *ngIf="content.invalid && content.touched" class="text-danger">
+          <i class="fas fa-exclamation-triangle"></i>
+          Content is required
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button type="submit"
+                class="btn btn-primary"
+                [disabled]="postForm.invalid || isSubmitting">
+          <i class="fas" [class.fa-spinner]="isSubmitting" [class.fa-paper-plane]="!isSubmitting"></i>
+          {{ isSubmitting ? 'Adding Post...' : 'Publish Post' }}
+        </button>
+
+        <a routerLink="/" class="btn-link">
+          <i class="fas fa-times"></i>
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</div>

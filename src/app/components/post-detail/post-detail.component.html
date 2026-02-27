@@ -1,0 +1,31 @@
+<div class="container" *ngIf="post">
+  <div class="post-card">
+    <div class="post-header">
+      <h2>{{ post.title }}</h2>
+      <div class="post-meta">
+        <span>
+          <i class="fas fa-user"></i>
+          {{ post.author }}
+        </span>
+        <span>
+          <i class="fas fa-calendar"></i>
+          {{ post.datePosted | date:'fullDate' }}
+        </span>
+      </div>
+    </div>
+    <div class="post-body">
+      <p>{{ post.content }}</p>
+    </div>
+    <div class="post-footer">
+      <a routerLink="/" class="btn-back">
+        <i class="fas fa-arrow-left"></i>
+        Back to all posts
+      </a>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!post" class="loading">
+  <i class="fas fa-spinner fa-spin"></i>
+  Loading post...
+</div>
